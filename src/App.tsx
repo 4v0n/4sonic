@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Homepage } from "./components/Homepage";
-import { Topbar } from "./components/topbar";
+import { Topbar } from "./components/Topbar/Topbar";
 import { Searchpage } from "./components/Searchpage";
 import { Librarypage } from "./components/Librarypage";
 import { Playlistpage } from "./components/Playlistpage";
