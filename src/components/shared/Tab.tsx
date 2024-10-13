@@ -1,10 +1,10 @@
-interface TopbartabProps {
+interface TabProps {
   icon: string;
   text: string;
   href: string;
 }
 
-const Topbartab: React.FC<TopbartabProps> = ({
+const Tab: React.FC<TabProps> = ({
   icon,
   text,
   href,
@@ -25,4 +25,4 @@ const Topbartab: React.FC<TopbartabProps> = ({
   );
 };
 
-export default Topbartab;
+export default Tab;

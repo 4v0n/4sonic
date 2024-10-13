@@ -1,15 +1,15 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { Homepage } from "./components/Homepage";
-import { Topbar } from "./components/Topbar/Topbar";
-import { Searchpage } from "./components/Searchpage";
-import { Librarypage } from "./components/Librarypage";
-import { Playlistpage } from "./components/Playlistpage";
-import { Albumpage } from "./components/Albumpage";
-import { Artistpage } from "./components/Artistpage";
-import { Settingspage } from "./components/Settingspage";
-import { Downloadspage } from "./components/Downloadspage";
-import { Setuppage } from "./components/Setuppage";
+import { Homepage } from "./components/pages/Homepage";
+import { Topbar } from "./components/shared/Topbar";
+import { Searchpage } from "./components/pages/Searchpage";
+import { Librarypage } from "./components/pages/Librarypage";
+import { Playlistpage } from "./components/pages/Playlistpage";
+import { Albumpage } from "./components/pages/Albumpage";
+import { Artistpage } from "./components/pages/Artistpage";
+import { Settingspage } from "./components/pages/Settingspage";
+import { Downloadspage } from "./components/pages/Downloadspage";
+import { Setuppage } from "./components/pages/Setuppage";
 
 function App() {
   return (
