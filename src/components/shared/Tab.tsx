@@ -8,16 +8,18 @@ const Tab: React.FC<TabProps> = ({
   text,
 }) => {
   return (
-    <div className="button flex items-center space-x-2 px-4 py-2 rounded-t-lg shadow-sm">
-      <div>
-        {icon && (
-          <img src={icon} alt={text} />
-        )}
-      </div>
-      <div>
-        {text && (
-          <p>{text}</p>
-        )}
+    <div className="pt-2">
+      <div className="button flex items-center space-x-2 px-4 py-2 rounded-t-lg shadow-sm">
+        <div>
+          {icon && (
+            <img src={icon} alt={text} />
+          )}
+        </div>
+        <div>
+          {text && (
+            <p>{text}</p>
+          )}
+        </div>
       </div>
     </div>
   );

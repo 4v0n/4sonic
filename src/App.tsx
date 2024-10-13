@@ -16,7 +16,7 @@ function App() {
     <Router>
       <div className="flex flex-col min-h-screen">
         <Topbar />
-        <div className="flex-grow overflow-y-auto pt-10 px-1">
+        <div className="flex-grow overflow-y-auto pt-12 px-1">
           <Routes>
             <Route path="/" element={<Homepage/>} />
             <Route path="/search/:query" element={<Searchpage />} />

@@ -8,7 +8,7 @@ const ClickableIcon: React.FC<ClickableIconProps> = ({
   icon,
 }) => {
   return (
-    <div className="button flex items-center justify-center w-8 h-8 rounded-full shadow-md hover:shadow-lg transition-shadow duration-200">
+    <div className="button flex items-center justify-center w-10 h-10 rounded-full">
       <img src={icon} />
     </div>
   );
