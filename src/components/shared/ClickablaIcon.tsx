@@ -2,17 +2,15 @@ import React from "react";
 
 interface ClickableIconProps {
   icon: string;
-  href: string;
 }
 
 const ClickableIcon: React.FC<ClickableIconProps> = ({
   icon,
-  href,
 }) => {
   return (
-    <a href={href || "#"}>
+    <div className="button flex items-center justify-center w-8 h-8 rounded-full shadow-md hover:shadow-lg transition-shadow duration-200">
       <img src={icon} />
-    </a>
+    </div>
   );
 };
 

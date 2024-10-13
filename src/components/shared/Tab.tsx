@@ -1,16 +1,14 @@
 interface TabProps {
   icon: string;
   text: string;
-  href: string;
 }
 
 const Tab: React.FC<TabProps> = ({
   icon,
   text,
-  href,
 }) => {
   return (
-    <a href={href || "#"}>
+    <div className="button flex items-center space-x-2 px-4 py-2 rounded-t-lg shadow-sm">
       <div>
         {icon && (
           <img src={icon} alt={text} />
@@ -21,7 +19,7 @@ const Tab: React.FC<TabProps> = ({
           <p>{text}</p>
         )}
       </div>
-    </a>
+    </div>
   );
 };
 

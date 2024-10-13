@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import "./App.css";
+
 import { Homepage } from "./components/pages/Homepage";
 import { Topbar } from "./components/shared/Topbar";
 import { Searchpage } from "./components/pages/Searchpage";
@@ -14,9 +14,9 @@ import { Setuppage } from "./components/pages/Setuppage";
 function App() {
   return (
     <Router>
-      <div>
+      <div className="flex flex-col min-h-screen">
         <Topbar />
-        <div>
+        <div className="flex-grow overflow-y-auto pt-10 px-1">
           <Routes>
             <Route path="/" element={<Homepage/>} />
             <Route path="/search/:query" element={<Searchpage />} />
