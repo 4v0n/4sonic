@@ -5,7 +5,7 @@ import SearchBar from "./Searchbar";
 
 export function Topbar() {
   return (
-    <div className="fixed top-0 left-0 w-full z-10 min-h-12 max-h-12 shadow-md">
+    <div className="fixed w-full min-h-12 max-h-12 shadow-md">
       <nav className="flex items-center justify-between pr-2">
         <div>
           <Link to="/">
@@ -13,7 +13,7 @@ export function Topbar() {
           </Link>
         </div>
         <div className="flex space-x-2">
-          <SearchBar />
+          <SearchBar placeholder="Search" />
           <Link to="/settings">
             <ClickableIcon icon="settings.svg"/>
           </Link>

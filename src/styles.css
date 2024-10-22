@@ -12,4 +12,18 @@
     @apply bg-button-light dark:bg-button-dark shadow-sm hover:shadow-lg;
     transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.3s ease;
   }
+
+  .toggleActive {
+    @apply bg-success-light dark:bg-success-dark shadow-sm hover:shadow-lg h-6 w-11 flex justify-end items-center rounded-full p-1; 
+    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.3s ease;
+  }
+
+  .toggleDisabled {
+    @apply bg-danger-light dark:bg-danger-dark shadow-sm hover:shadow-lg  h-6 w-11 flex justify-start items-center rounded-full p-1;
+    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.3s ease;
+  }
+
+  .no-transition * {
+    transition: none !important;
+  }
 }

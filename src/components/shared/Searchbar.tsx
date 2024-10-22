@@ -26,7 +26,7 @@ const SearchBar: React.FC<SeachBarProps> = ({
   };
 
   return (
-    <div className="button flex w-64 h-10 items-center justify-start rounded-full px-2">
+    <div className="button flex w-64 h-8 items-center justify-start rounded-full px-2">
       <img src="search.svg" />
       <input
         type="text"
@@ -34,7 +34,7 @@ const SearchBar: React.FC<SeachBarProps> = ({
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
-        className="w-full focus:outline-none items-center"
+        className="w-full focus:outline-none items-center bg-transparent"
       />
     </div>
   );

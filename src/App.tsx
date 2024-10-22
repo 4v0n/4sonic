@@ -10,13 +10,20 @@ import { Artistpage } from "./components/pages/Artistpage";
 import { Settingspage } from "./components/pages/Settingspage";
 import { Downloadspage } from "./components/pages/Downloadspage";
 import { Setuppage } from "./components/pages/Setuppage";
+import { useEffect } from "react";
+import startup from "./utils/startupUtil";
 
 function App() {
+
+  useEffect(() => {
+    startup();
+  }, []);
+
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
         <Topbar />
-        <div className="flex-grow overflow-y-auto pt-12 px-1">
+        <div className="flex-grow overflow-y-auto pt-14 px-1">
           <Routes>
             <Route path="/" element={<Homepage/>} />
             <Route path="/search/:query" element={<Searchpage />} />
