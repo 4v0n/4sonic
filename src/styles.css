@@ -10,17 +10,27 @@
 
   .button {
     @apply bg-button-light dark:bg-button-dark shadow-sm hover:shadow-lg;
-    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.3s ease;
+    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
   }
 
   .toggleActive {
     @apply bg-success-light dark:bg-success-dark shadow-sm hover:shadow-lg h-6 w-11 flex justify-end items-center rounded-full p-1; 
-    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.3s ease;
+    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
   }
 
   .toggleDisabled {
     @apply bg-danger-light dark:bg-danger-dark shadow-sm hover:shadow-lg  h-6 w-11 flex justify-start items-center rounded-full p-1;
-    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.3s ease;
+    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+  }
+
+  .surface1 {
+    @apply bg-surface1-light dark:bg-surface1-dark;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+
+  .bottomBar {
+    @apply bg-background-light dark:bg-background-dark border-button-light dark:border-button-dark;
+    transition: background-color 0.5s ease, color 0.5s ease;
   }
 
   .no-transition * {

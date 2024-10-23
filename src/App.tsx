@@ -12,6 +12,8 @@ import { Downloadspage } from "./components/pages/Downloadspage";
 import { Setuppage } from "./components/pages/Setuppage";
 import { useEffect } from "react";
 import startup from "./utils/startupUtil";
+import Bottombar from "./components/shared/Bottombar";
+import Leftbar from "./components/shared/Leftbar";
 
 function App() {
 
@@ -25,7 +27,7 @@ function App() {
         <Topbar />
         <div className="flex-grow overflow-y-auto pt-14 px-1">
           <Routes>
-            <Route path="/" element={<Homepage/>} />
+            <Route path="/" element={<Homepage />} />
             <Route path="/search/:query" element={<Searchpage />} />
             <Route path="/library" element={<Librarypage />} />
             <Route path="/playlist/:id" element={<Playlistpage />} />
@@ -37,6 +39,7 @@ function App() {
           </Routes>
         </div>
       </div>
+      <Bottombar />
     </Router>
   );
 }

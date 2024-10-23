@@ -9,6 +9,10 @@ export const theme = {
         dark: "#131419",
         light: "#e7fbf1",
       },
+      surface1: {
+        dark: "#28292e",
+        light: "#ffffff",
+      },
       text: {
         dark: "#ffffff",
         light: "#000000",
