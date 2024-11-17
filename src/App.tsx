@@ -13,7 +13,6 @@ import { Setuppage } from "./components/pages/Setuppage";
 import { useEffect } from "react";
 import startup from "./utils/startupUtil";
 import Bottombar from "./components/shared/Bottombar";
-import Leftbar from "./components/shared/Leftbar";
 
 function App() {
 
