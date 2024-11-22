@@ -9,7 +9,7 @@
   }
 
   .button {
-    @apply bg-button-light dark:bg-button-dark shadow-sm hover:shadow-lg;
+    @apply bg-button-light dark:bg-button-dark shadow-sm hover:shadow-lg border-border-light dark:border-border-dark;
     transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
   }
 

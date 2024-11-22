@@ -1,12 +1,9 @@
-import { IAudioMetadata, parseBlob } from "music-metadata-browser";
-
 class songPlayer extends EventTarget {
   private static instance: songPlayer;
 
   private tempFile = "temp.flac";
   private audio: HTMLAudioElement | null = null;
   private volume: number;
-  public metadata: IAudioMetadata | null = null;
 
   private constructor() {
     super();
@@ -23,26 +20,11 @@ class songPlayer extends EventTarget {
     return songPlayer.instance;
   }
 
-  private async loadMetadata(filePath: string): Promise<void> {
-    try {
-      const res = await fetch(filePath);
-      const blob = await res.blob();
-      this.metadata = await parseBlob(blob);
-    }
-    catch (error) {
-      console.error("Error loading metadata:", error);
-    }
-
-    this.dispatchEvent(new Event("metadataUpdated"));
-  }
-
   public play(): void {
-    this.loadMetadata(this.tempFile);
     this.audio?.play();
   }
 
   public pause(): void {
-    this.loadMetadata(this.tempFile);
     this.audio?.pause();
   }
 

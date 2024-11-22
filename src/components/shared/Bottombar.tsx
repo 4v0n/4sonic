@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import songPlayer from "../../player/songPlayer";
 import ClickableIcon from "./ClickablaIcon";
-import { IPicture } from "music-metadata-browser";
 
 function Bottombar() {
   const player = songPlayer.getInstance();
@@ -39,21 +38,6 @@ function Bottombar() {
     player.setVolume(newVolume);
     setVolume(newVolume);
   };
-
-  useEffect(() => {
-    const updateMetadata = () => {
-      setSongTitle(player.metadata?.common.title || "Unknown Title");
-      setSongArtist(player.metadata?.common.artist || "Unknown Artist");
-      setSongAlbum(player.metadata?.common.album || "Unknown Album");
-      setSongCover(player.metadata?.common.picture?.toString || "noImage.svg");
-    };
-
-    player.addEventListener("metadataUpdated", updateMetadata);
-
-    return () => {
-      player.removeEventListener("metadataUpdated", updateMetadata);
-    };
-  }, [player]);
 
   return (
     <div className="w-full h-20 fixed bottom-0 bottomBar">
@@ -98,7 +82,7 @@ function Bottombar() {
             )}
           </div>
 
-          <ClickableIcon icon="playerIcons/audioDevice.svg" />
+          {/* <ClickableIcon icon="playerIcons/audioDevice.svg" /> */}
           <ClickableIcon icon="playerIcons/queue.svg" />
         </div>
       </div>

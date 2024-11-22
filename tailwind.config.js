@@ -41,6 +41,10 @@ export const theme = {
         dark: "#8c8c8f",
         light: "#8c8c8f",
       },
+      border: {
+        dark: "#28292e",
+        light: "#ffffff",
+      },
     },
   },
 };

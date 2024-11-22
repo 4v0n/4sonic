@@ -7,9 +7,12 @@ export function Topbar() {
   return (
     <div className="fixed w-full min-h-12 max-h-12 shadow-md">
       <nav className="flex items-center justify-between pr-2">
-        <div>
+        <div className="flex items-center">
           <Link to="/">
             <Tab icon="home.svg" text="Home" />
+          </Link>
+          <Link to="/library">
+            <Tab icon="home.svg" text="Library" />
           </Link>
         </div>
         <div className="flex space-x-2">
