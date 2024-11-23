@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import songPlayer from "../../player/songPlayer";
-import ClickableIcon from "./ClickablaIcon";
+import Button from "./Button";
 
 function Bottombar() {
   const player = songPlayer.getInstance();
@@ -56,12 +56,12 @@ function Bottombar() {
         </div>
         <div>
           <div className="flex justify-center space-x-2">
-            <ClickableIcon icon="playerIcons/shuffleOff.svg" />
-            <ClickableIcon icon="playerIcons/previous.svg" onClick={handlePrevious}/>
-            {!isPlaying && <ClickableIcon icon="playerIcons/play.svg" onClick={handlePlay} />}
-            {isPlaying && <ClickableIcon icon="playerIcons/pause.svg" onClick={handlePause} />}
-            <ClickableIcon icon="playerIcons/next.svg" onClick={handleNext} />
-            <ClickableIcon icon="playerIcons/loop.svg" />
+            <Button icon="playerIcons/shuffleOff.svg" />
+            <Button icon="playerIcons/previous.svg" onClick={handlePrevious}/>
+            {!isPlaying && <Button icon="playerIcons/play.svg" onClick={handlePlay} />}
+            {isPlaying && <Button icon="playerIcons/pause.svg" onClick={handlePause} />}
+            <Button icon="playerIcons/next.svg" onClick={handleNext} />
+            <Button icon="playerIcons/loop.svg" />
           </div>
           <div className="flex justify-center">
             [currentTime]
@@ -75,7 +75,7 @@ function Bottombar() {
             onMouseEnter={() => setShowVolumeSlider(true)}
             onMouseLeave={() => setShowVolumeSlider(false)}
           >
-            <ClickableIcon icon="playerIcons/volumeUp.svg" />
+            <Button icon="playerIcons/volumeUp.svg" />
 
             {showVolumeSlider && (
               <div></div>
@@ -83,7 +83,7 @@ function Bottombar() {
           </div>
 
           {/* <ClickableIcon icon="playerIcons/audioDevice.svg" /> */}
-          <ClickableIcon icon="playerIcons/queue.svg" />
+          <Button icon="playerIcons/queue.svg" />
         </div>
       </div>
     </div>

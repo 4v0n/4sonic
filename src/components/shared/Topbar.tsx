@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import ClickableIcon from "./ClickablaIcon";
+import Button from "./Button";
 import Tab from "./Tab";
 import SearchBar from "./Searchbar";
 
@@ -18,7 +18,7 @@ export function Topbar() {
         <div className="flex space-x-2">
           <SearchBar placeholder="Search" />
           <Link to="/settings">
-            <ClickableIcon icon="settings.svg"/>
+            <Button icon="settings.svg"/>
           </Link>
         </div>
       </nav>

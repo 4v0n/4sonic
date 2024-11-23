@@ -7,7 +7,7 @@ interface ClickableIconProps {
   onMouseLeave?: () => void;
 }
 
-const ClickableIcon: React.FC<ClickableIconProps> = ({
+const Button: React.FC<ClickableIconProps> = ({
   icon,
   onClick,
   onMouseEnter,
@@ -25,4 +25,4 @@ const ClickableIcon: React.FC<ClickableIconProps> = ({
   );
 };
 
-export default ClickableIcon;
+export default Button;

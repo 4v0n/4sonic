@@ -10,15 +10,36 @@ import { Artistpage } from "./components/pages/Artistpage";
 import { Settingspage } from "./components/pages/Settingspage";
 import { Downloadspage } from "./components/pages/Downloadspage";
 import { Setuppage } from "./components/pages/Setuppage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import startup from "./utils/startupUtil";
 import Bottombar from "./components/shared/Bottombar";
 
 function App() {
 
+  const [firstStartup, setFirstStartup] = useState(true);
+  const [initialised, setInitialised] = useState(false);
+
   useEffect(() => {
-    startup();
+    if (!initialised) {
+      startup();
+      setInitialised(true);
+    }
+
+    const firstTime = localStorage.getItem("firstTime");
+    if (firstTime === "false") {
+      setFirstStartup(false);
+    }
   }, []);
+
+  function completeSetup() {
+    setFirstStartup(false);
+  }
+
+  if (firstStartup) {
+    return (
+      <Setuppage onComplete={completeSetup} />
+    );
+  }
 
   return (
     <Router>
@@ -34,7 +55,6 @@ function App() {
             <Route path="/artist/:id" element={<Artistpage />} />
             <Route path="/settings" element={<Settingspage />} />
             <Route path="/downloads" element={<Downloadspage />} />
-            <Route path="/setup" element={<Setuppage />} />
           </Routes>
         </div>
       </div>
