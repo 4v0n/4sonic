@@ -30,7 +30,7 @@ export function SettingsPage() {
 
   return (
     <div className="flex justify-center mt-4">
-      <div className="w-full max-w-md px-4 ">
+      <div className="w-full max-w-md px-4">
 
         <div className="flex justify-between items-center ml-16 mr-16">
           <h1 className="font-medium">Dark Mode</h1>

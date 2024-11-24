@@ -35,12 +35,16 @@ export default function ManageSourcesPage() {
             </div>
           </Card>
 
-          <Button
-            className="bg-success-light dark:bg-success-dark mt-2 mx-auto"
-            icon="add.svg"
+          <Link
+            to={"/addsource"}
           >
+            <Button
+              className="bg-success-light dark:bg-success-dark mt-2 mx-auto"
+              icon="add.svg"
+            >
             Add Source
-          </Button>
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

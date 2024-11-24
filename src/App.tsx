@@ -3,17 +3,18 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import startup from "./utils/startupUtil";
 import Bottombar from "./components/shared/Bottombar";
-import { SetupPage } from "./components/pages/Setuppage";
-import { Topbar } from "./components/shared/Topbar";
-import { HomePage } from "./components/pages/Homepage";
-import { AlbumPage } from "./components/pages/Albumpage";
-import { ArtistPage } from "./components/pages/Artistpage";
-import { DownloadsPage } from "./components/pages/Downloadspage";
-import { LibraryPage } from "./components/pages/Librarypage";
-import { PlaylistPage } from "./components/pages/Playlistpage";
-import { SearchPage } from "./components/pages/Searchpage";
-import { SettingsPage } from "./components/pages/Settingspage";
 import ManageSourcesPage from "./components/pages/ManageSourcesPage";
+import AddSourcePage from "./components/pages/AddSourcePage";
+import { AlbumPage } from "./components/pages/AlbumPage";
+import { ArtistPage } from "./components/pages/ArtistPage";
+import { DownloadsPage } from "./components/pages/DownloadsPage";
+import { HomePage } from "./components/pages/HomePage";
+import { LibraryPage } from "./components/pages/LibraryPage";
+import { PlaylistPage } from "./components/pages/PlaylistPage";
+import { SearchPage } from "./components/pages/SearchPage";
+import { SettingsPage } from "./components/pages/SettingsPage";
+import { SetupPage } from "./components/pages/SetupPage";
+import { Topbar } from "./components/shared/Topbar";
 
 export default function App() {
 
@@ -57,6 +58,7 @@ export default function App() {
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/downloads" element={<DownloadsPage />} />
             <Route path="/managesources" element={<ManageSourcesPage />} />
+            <Route path="/addsource" element={<AddSourcePage />} />
           </Routes>
         </div>
       </div>
