@@ -1,4 +1,4 @@
-export function Artistpage() {
+export function ArtistPage() {
   return (
     <div>
       Artistpage

@@ -1,20 +1,21 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import { Homepage } from "./components/pages/Homepage";
-import { Topbar } from "./components/shared/Topbar";
-import { Searchpage } from "./components/pages/Searchpage";
-import { Librarypage } from "./components/pages/Librarypage";
-import { Playlistpage } from "./components/pages/Playlistpage";
-import { Albumpage } from "./components/pages/Albumpage";
-import { Artistpage } from "./components/pages/Artistpage";
-import { Settingspage } from "./components/pages/Settingspage";
-import { Downloadspage } from "./components/pages/Downloadspage";
-import { Setuppage } from "./components/pages/Setuppage";
 import { useEffect, useState } from "react";
 import startup from "./utils/startupUtil";
 import Bottombar from "./components/shared/Bottombar";
+import { SetupPage } from "./components/pages/Setuppage";
+import { Topbar } from "./components/shared/Topbar";
+import { HomePage } from "./components/pages/Homepage";
+import { AlbumPage } from "./components/pages/Albumpage";
+import { ArtistPage } from "./components/pages/Artistpage";
+import { DownloadsPage } from "./components/pages/Downloadspage";
+import { LibraryPage } from "./components/pages/Librarypage";
+import { PlaylistPage } from "./components/pages/Playlistpage";
+import { SearchPage } from "./components/pages/Searchpage";
+import { SettingsPage } from "./components/pages/Settingspage";
+import ManageSourcesPage from "./components/pages/ManageSourcesPage";
 
-function App() {
+export default function App() {
 
   const [firstStartup, setFirstStartup] = useState(true);
   const [initialised, setInitialised] = useState(false);
@@ -37,7 +38,7 @@ function App() {
 
   if (firstStartup) {
     return (
-      <Setuppage onComplete={completeSetup} />
+      <SetupPage onComplete={completeSetup} />
     );
   }
 
@@ -47,14 +48,15 @@ function App() {
         <Topbar />
         <div className="flex-grow overflow-y-auto pt-14 px-1">
           <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/search/:query" element={<Searchpage />} />
-            <Route path="/library" element={<Librarypage />} />
-            <Route path="/playlist/:id" element={<Playlistpage />} />
-            <Route path="/album/:id" element={<Albumpage />} />
-            <Route path="/artist/:id" element={<Artistpage />} />
-            <Route path="/settings" element={<Settingspage />} />
-            <Route path="/downloads" element={<Downloadspage />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/search/:query" element={<SearchPage />} />
+            <Route path="/library" element={<LibraryPage />} />
+            <Route path="/playlist/:id" element={<PlaylistPage />} />
+            <Route path="/album/:id" element={<AlbumPage />} />
+            <Route path="/artist/:id" element={<ArtistPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/downloads" element={<DownloadsPage />} />
+            <Route path="/managesources" element={<ManageSourcesPage />} />
           </Routes>
         </div>
       </div>
@@ -62,5 +64,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Toggle from "../shared/Toggle";
 import Button from "../shared/Button";
+import { Link } from "react-router-dom";
 
-export function Settingspage() {
+export function SettingsPage() {
 
   const currentState = localStorage.getItem("dark-mode");
 
@@ -37,10 +38,22 @@ export function Settingspage() {
         </div>
 
         <div className="flex justify-center mt-6">
+          <Link to={"/managesources"}>
+            <Button>
+              <h1 className="w-32">
+              Manage Sources
+              </h1>
+            </Button>
+          </Link>
+        </div>
+
+        <div className="flex justify-center mt-6">
           <Button
             onClick={resetSettings}
           >
-            Reset Application
+            <h1 className="w-32">
+              Reset Application
+            </h1>
           </Button>
         </div>
       </div>

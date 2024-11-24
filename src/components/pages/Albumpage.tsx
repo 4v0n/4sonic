@@ -1,4 +1,4 @@
-export function Albumpage() {
+export function AlbumPage() {
   return (
     <div>
       Albumpage

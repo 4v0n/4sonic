@@ -1,4 +1,4 @@
-export function Librarypage() {
+export function LibraryPage() {
   return (
     <div>
       Librarypage

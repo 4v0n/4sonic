@@ -1,4 +1,4 @@
-export function Downloadspage() {
+export function DownloadsPage() {
   return (
     <div>
       Downloadspage

@@ -1,4 +1,4 @@
-export function Homepage() {
+export function HomePage() {
   return (
     <div>
       Homepage

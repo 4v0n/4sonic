@@ -4,7 +4,7 @@ interface SetupPageProps {
   onComplete: () => void;
 };
 
-export function Setuppage({ onComplete }: SetupPageProps) {
+export function SetupPage({ onComplete }: SetupPageProps) {
 
   function completeSetup() {
     localStorage.setItem("firstTime", "false");

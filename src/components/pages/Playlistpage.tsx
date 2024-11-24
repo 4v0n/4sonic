@@ -1,4 +1,4 @@
-export function Playlistpage() {
+export function PlaylistPage() {
   return (
     <div>
       Playlistpage

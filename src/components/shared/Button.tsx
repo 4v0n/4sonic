@@ -1,11 +1,13 @@
-import React from "react";
+import classNames from "classnames";
+import React, { ReactNode } from "react";
 
 interface ClickableIconProps {
   icon?: string;
   onClick?: () => void;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
-  children?: React.ReactNode;
+  children?: ReactNode;
+  className?: string;
 }
 
 export default function({
@@ -14,12 +16,15 @@ export default function({
   onMouseEnter,
   onMouseLeave,
   children,
+  className,
 }: ClickableIconProps) {
+
+  const baseIconOnlyClasses = "button flex items-center justify-center min-h-8 min-w-8 rounded-full cursor-pointer";
 
   if (children == undefined) {
     return (
       <button
-        className="button flex items-center justify-center min-h-8 min-w-8 rounded-full cursor-pointer"
+        className= {classNames(baseIconOnlyClasses, className)}
         onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
@@ -29,9 +34,11 @@ export default function({
     );
   }
 
+  const baseClasses = "button flex items-center min-h-8 min-w-8 px-2 rounded-full cursor-pointer";
+
   return (
     <button
-      className="button flex items-center min-h-8 min-w-8 px-2 rounded-full cursor-pointer"
+      className={classNames(baseClasses, className)}
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
