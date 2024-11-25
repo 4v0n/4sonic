@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "./Button";
 import Tab from "./Tab";
-import SearchBar from "./Searchbar";
+import InputBar from "./InputBar";
 
 export function Topbar() {
   return (
@@ -16,7 +16,7 @@ export function Topbar() {
           </Link>
         </div>
         <div className="flex space-x-2">
-          <SearchBar placeholder="Search" />
+          <InputBar icon="search.svg" placeholder="Search" />
           <Link to="/settings">
             <Button icon="settings.svg"/>
           </Link>
