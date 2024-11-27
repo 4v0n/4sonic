@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import songPlayer from "../../player/songPlayer";
+import SongPlayer from "../../player/SongPlayer";
 import Button from "./Button";
 
 function Bottombar() {
-  const player = songPlayer.getInstance();
+  const player = SongPlayer.getInstance();
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
   const [volume, setVolume] = useState(1.0);
 

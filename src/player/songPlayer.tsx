@@ -1,5 +1,5 @@
-class songPlayer extends EventTarget {
-  private static instance: songPlayer;
+class SongPlayer extends EventTarget {
+  private static instance: SongPlayer;
 
   private tempFile = "temp.flac";
   private audio: HTMLAudioElement | null = null;
@@ -10,14 +10,20 @@ class songPlayer extends EventTarget {
 
     this.volume = 1.0;
 
-    this.audio = new Audio(this.tempFile);
+    this.audio = new Audio();
   }
 
-  public static getInstance(): songPlayer {
-    if (!songPlayer.instance) {
-      songPlayer.instance = new songPlayer();
+  public static getInstance(): SongPlayer {
+    if (!SongPlayer.instance) {
+      SongPlayer.instance = new SongPlayer();
     }
-    return songPlayer.instance;
+    return SongPlayer.instance;
+  }
+
+  public setTrack(stream: string): void {
+    this.audio?.pause();
+
+    this.audio = new Audio(stream);
   }
 
   public play(): void {
@@ -36,4 +42,4 @@ class songPlayer extends EventTarget {
   }
 }
 
-export default songPlayer;
+export default SongPlayer;

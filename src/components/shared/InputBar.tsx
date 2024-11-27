@@ -1,12 +1,16 @@
 import classNames from "classnames";
-import React, { useState } from "react";
 
 interface InputBarProps {
   icon?: string;
   placeholder?: string;
-  onEnter?: (query: string) => void;
+  onEnter?: () => void;
   className?: string;
+  value: string;
+  setValue: (s: string) => void;
+
   censor?: boolean;
+  numbersOnly?: boolean;
+  maxLength?: number;
 };
 
 export default function InputBar({
@@ -14,21 +18,36 @@ export default function InputBar({
   placeholder = "",
   onEnter,
   className,
+  // value is read outside of this component
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  value,
+  setValue,
   censor,
+  numbersOnly,
+  maxLength,
 }: InputBarProps) {
-  const [query, setQuery] = useState("");
-  const [displayText, setDisplayText] = useState("");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  if (censor === undefined) {
+    censor = false;
+  }
+
+  function isNumber(s: string) {
+    return /^[0-9]+$/.test(s);
+  }
+
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const newQuery = e.target.value;
-    setQuery(newQuery);
 
-    if (!censor) {
-      setDisplayText(newQuery);
+    if (maxLength != undefined && newQuery.length > maxLength) {
+      return;
     }
-    else {
-      setDisplayText("*".repeat(newQuery.length));
+
+    // must allow empty string through to be able to empty the field
+    if (numbersOnly && !isNumber(newQuery) && newQuery.length != 0) {
+      return;
     }
+
+    setValue(newQuery);
   };
 
   const baseClasses = "button flex w-64 h-8 items-center justify-start rounded-full px-2";
@@ -37,10 +56,10 @@ export default function InputBar({
     <div className={classNames(baseClasses, className)}>
       {icon && <img src={icon} />}
       <input
-        type="text"
-        value={displayText}
+        type={censor ? "password" : "text"}
+        value={value}
         onChange={handleInputChange}
-        onKeyDown={() => {if (onEnter != undefined) onEnter(query);}}
+        onKeyDown={() => {if (onEnter != undefined) onEnter();}}
         placeholder={placeholder}
         className="w-full focus:outline-none items-center bg-transparent"
       />
