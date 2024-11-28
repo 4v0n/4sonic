@@ -1,4 +1,4 @@
-class SongPlayer extends EventTarget {
+export default class SongPlayer extends EventTarget {
   private static instance: SongPlayer;
 
   private tempFile = "temp.flac";
@@ -41,5 +41,3 @@ class SongPlayer extends EventTarget {
     }
   }
 }
-
-export default SongPlayer;

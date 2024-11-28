@@ -1,16 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../shared/Button";
 import InputBar from "../shared/InputBar";
 import CryptoJS from "crypto-js";
 import { useState } from "react";
-
-interface serverCredentials {
-  name: string;
-  uri: string;
-  username: string;
-  token: string;
-  salt: string;
-};
+import { Source, SourceCredentials } from "../../sources/Source";
+import SourceManager from "../../sources/SourceManager";
 
 export default function AddSourcePage() {
   const [sourceName, setSourceName] = useState("");
@@ -19,39 +13,13 @@ export default function AddSourcePage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   function genAuthToken(p: string) {
     const salt = Math.random().toString(36).substring(2, 8);
+    // MD5 to match subsonic hash
     const token = CryptoJS.MD5(p + salt).toString();
     return { token, salt };
-  }
-
-  function hasSameSource(servers: serverCredentials[], newSource: serverCredentials): boolean {
-    return servers.some((server) => {
-      return server.uri === newSource.uri;
-    });
-  }
-
-  function saveSourceToLocal(credentials: serverCredentials) {
-    let servers: serverCredentials[];
-    const serversString = localStorage.getItem("servers");
-
-    if (serversString) {
-      servers = JSON.parse(serversString);
-    }
-    else {
-      servers = [];
-    }
-
-    console.log(!hasSameSource(servers, credentials));
-
-    if (!hasSameSource(servers, credentials)) {
-      servers.push(credentials);
-
-      localStorage.setItem("servers", JSON.stringify(servers));
-    }
-    else {
-      alert("This source has already been added!");
-    }
   }
 
   function saveSource() {
@@ -82,8 +50,15 @@ export default function AddSourcePage() {
         }
         return res.json();
       })
-      .then(() => {
-        const credentials = {
+      .then((response) => {
+
+        if (response["subsonic-response"]["error"]) {
+          const error = response["subsonic-response"]["error"]["message"];
+          alert(error);
+          return;
+        }
+
+        const credentials: SourceCredentials = {
           name: sourceName,
           uri: baseURL,
           username: username,
@@ -91,7 +66,17 @@ export default function AddSourcePage() {
           salt: salt,
         };
 
-        saveSourceToLocal(credentials);
+        const sm = SourceManager.getInstance();
+        const newSource = new Source(credentials);
+
+        if (!sm.hasSource(newSource)) {
+          sm.addSource(newSource);
+          sm.writeSources();
+          navigate("/managesources");
+        }
+        else {
+          alert("A source with this name / URL already exists!");
+        }
       })
       .catch(() => {
         alert("Could not connect to source server.");
