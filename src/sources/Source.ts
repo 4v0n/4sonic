@@ -42,6 +42,29 @@ export class Source extends EventTarget {
     const foundAlbums = await this.getAlbumsFromArtists(foundArtists);
 
     const foundSongs = await this.getSongsFromAlbums(foundAlbums);
+
+    this.addSongsToArtists(foundSongs, foundArtists);
+
+    lm.addArtists(foundArtists);
+    lm.addAlbums(foundAlbums);
+    lm.addSongs(foundSongs);
+
+    console.log(lm);
+  }
+
+  private addSongsToArtists(songs: Song[], artistArray: Artist[]) {
+    const artists = artistArray.reduce((acc, obj) => {
+      acc.set(obj.name, obj);
+      return acc;
+    }, new Map());
+
+    for (const song of songs) {
+      const artist: Artist = artists.get(song.artist);
+
+      if (artist) {
+        artist.addSong(song);
+      }
+    }
   }
 
   private async getSongsFromAlbums(albums: Album[]): Promise<Song[]> {
@@ -57,6 +80,8 @@ export class Source extends EventTarget {
           for (const songDetail of songs) {
             const song = new Song(songDetail);
             songSet.push(song);
+
+            album.addSong(song);
           }
         }
       }
@@ -81,6 +106,8 @@ export class Source extends EventTarget {
           for (const albumDetail of albums) {
             const album = new Album(albumDetail);
             albumSet.push(album);
+
+            artist.addAlbum(album);
           }
         }
       }

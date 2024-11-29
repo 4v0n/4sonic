@@ -1,35 +1,41 @@
+import Album from "./Album";
+import Song from "./Song";
 import { SubsonicArtist } from "./SubsonicTypes";
 
 export default class Artist {
 
-  private _id: string;
-  private _name: string;
-  private _artistImageUrl: string;
-  private _rating: number;
+  private details: SubsonicArtist;
 
   private _albums: string[];
   private _songs: string[];
 
   constructor(artistDetails: SubsonicArtist) {
-    this._id = artistDetails.id;
-    this._name = artistDetails.name;
-    this._artistImageUrl = artistDetails.artistImageUrl;
-    this._rating = artistDetails.userRating;
+    this.details = artistDetails;
+    this._albums = [];
+    this._songs = [];
+  }
+
+  public addAlbum(album: Album) {
+    this._albums.push(album.id);
+  }
+
+  public addSong(song: Song) {
+    this._songs.push(song.id);
   }
 
   public get id() {
-    return this._id;
+    return this.details.id;
   }
 
   public get name() {
-    return this._name;
+    return this.details.name;
   }
 
   public get artistImageUrl() {
-    return this._artistImageUrl;
+    return this.details.artistImageUrl;
   }
 
   public get rating() {
-    return this._rating;
+    return this.details.userRating;
   }
 }
