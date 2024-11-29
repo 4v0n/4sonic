@@ -38,19 +38,21 @@ export class Source extends EventTarget {
     const lm = LibraryManager.getInstance();
 
     const foundArtists = await this.getIndexes();
-
-    const foundAlbums = await this.getAlbumsFromArtists(foundArtists);
-
-    const foundSongs = await this.getSongsFromAlbums(foundAlbums);
-
-    this.addSongsToArtists(foundSongs, foundArtists);
-
     lm.addArtists(foundArtists);
-    lm.addAlbums(foundAlbums);
-    lm.addSongs(foundSongs);
 
-    console.log(lm);
+    const albumPromise = this.getAlbumsFromArtists(foundArtists).then((foundAlbums) => {
+      lm.addAlbums(foundAlbums);
+
+      // Fetch songs from the albums concurrently
+      return this.getSongsFromAlbums(foundAlbums);
+    });
+
+    albumPromise.then((foundSongs) => {
+      this.addSongsToArtists(foundSongs, foundArtists);
+      lm.addSongs(foundSongs);
+    });
   }
+
 
   private addSongsToArtists(songs: Song[], artistArray: Artist[]) {
     const artists = artistArray.reduce((acc, obj) => {
@@ -70,54 +72,62 @@ export class Source extends EventTarget {
   private async getSongsFromAlbums(albums: Album[]): Promise<Song[]> {
     const songSet: Song[] = [];
 
-    for (const album of albums) {
+    const fetchPromises = albums.map(async (album) => {
       try {
         const res = await fetch(this.uri + "/getAlbum" + this._authParams + `&id=${album.id}`);
         if (res.ok) {
           const resjson = await res.json();
           const songs = resjson["subsonic-response"]["album"]["song"];
 
-          for (const songDetail of songs) {
-            const song = new Song(songDetail, this);
-            songSet.push(song);
-
-            album.addSong(song);
+          if (songs) {
+            for (const songDetail of songs) {
+              const song = new Song(songDetail, this);
+              songSet.push(song);
+              album.addSong(song);
+            }
           }
         }
       }
       catch (err) {
         console.error(err);
       }
-    }
+    });
 
+    await Promise.all(fetchPromises);
     return songSet;
   }
+
 
   private async getAlbumsFromArtists(artists: Artist[]): Promise<Album[]> {
     const albumSet: Album[] = [];
 
-    for (const artist of artists) {
+    // Prepare all fetch promises
+    const fetchPromises = artists.map(async (artist) => {
       try {
         const res = await fetch(this.uri + "/getArtist" + this._authParams + `&id=${artist.id}`);
         if (res.ok) {
           const resjson = await res.json();
           const albums = resjson["subsonic-response"]["artist"]["album"];
 
-          for (const albumDetail of albums) {
-            const album = new Album(albumDetail);
-            albumSet.push(album);
-
-            artist.addAlbum(album);
+          if (albums) {
+            for (const albumDetail of albums) {
+              const album = new Album(albumDetail);
+              albumSet.push(album);
+              artist.addAlbum(album);
+            }
           }
         }
       }
       catch (err) {
         console.error(err);
       }
-    }
+    });
 
+    // Wait for all promises to resolve
+    await Promise.all(fetchPromises);
     return albumSet;
   }
+
 
   private async getIndexes(): Promise<Artist[]> {
     const artistSet: Artist[] = [];
