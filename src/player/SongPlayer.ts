@@ -1,9 +1,12 @@
+import Song from "./Song";
+
 export default class SongPlayer extends EventTarget {
   private static instance: SongPlayer;
 
-  private tempFile = "temp.flac";
-  private audio: HTMLAudioElement | null = null;
+  private audio: HTMLAudioElement;
   private volume: number;
+
+  private currentTrack: Song;
 
   private constructor() {
     super();
@@ -21,17 +24,33 @@ export default class SongPlayer extends EventTarget {
   }
 
   public setTrack(stream: string): void {
-    this.audio?.pause();
+    this.pause();
 
     this.audio = new Audio(stream);
   }
 
+  public setSubsonicTrack(song: Song): void {
+    this.currentTrack = song;
+
+    this.setTrack(song.stream);
+
+    this.dispatchEvent(new CustomEvent("newSubsonicTrack", { detail: this.currentTrack }));
+  }
+
   public play(): void {
-    this.audio?.play();
+    if (this.audio) {
+      this.audio.play();
+    }
+
+    this.dispatchEvent(new CustomEvent("playbackStarted"));
   }
 
   public pause(): void {
-    this.audio?.pause();
+    if (this.audio) {
+      this.audio.pause();
+    }
+
+    this.dispatchEvent(new CustomEvent("playbackStopped"));
   }
 
   public setVolume(volume: number): void {

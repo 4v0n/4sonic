@@ -18,12 +18,12 @@ export class Source extends EventTarget {
   private _token: string;
   private _salt: string;
 
-  private authParams: string;
+  private _authParams: string;
 
   public constructor(json: SourceCredentials) {
     super();
 
-    this.authParams = `?u=${json.username}&t=${json.token}&s=${json.salt}&c=4Sonic&v=1.16.1&f=json`;
+    this._authParams = `?u=${json.username}&t=${json.token}&s=${json.salt}&c=4Sonic&v=1.16.1&f=json`;
 
     this._name = json.name;
     this._uri = json.uri;
@@ -72,13 +72,13 @@ export class Source extends EventTarget {
 
     for (const album of albums) {
       try {
-        const res = await fetch(this.uri + "/getAlbum" + this.authParams + `&id=${album.id}`);
+        const res = await fetch(this.uri + "/getAlbum" + this._authParams + `&id=${album.id}`);
         if (res.ok) {
           const resjson = await res.json();
           const songs = resjson["subsonic-response"]["album"]["song"];
 
           for (const songDetail of songs) {
-            const song = new Song(songDetail);
+            const song = new Song(songDetail, this);
             songSet.push(song);
 
             album.addSong(song);
@@ -98,7 +98,7 @@ export class Source extends EventTarget {
 
     for (const artist of artists) {
       try {
-        const res = await fetch(this.uri + "/getArtist" + this.authParams + `&id=${artist.id}`);
+        const res = await fetch(this.uri + "/getArtist" + this._authParams + `&id=${artist.id}`);
         if (res.ok) {
           const resjson = await res.json();
           const albums = resjson["subsonic-response"]["artist"]["album"];
@@ -123,7 +123,7 @@ export class Source extends EventTarget {
     const artistSet: Artist[] = [];
 
     try {
-      const res = await fetch(this._uri + "/getIndexes" + this.authParams);
+      const res = await fetch(this._uri + "/getIndexes" + this._authParams);
       if (res.ok) {
         const resjson = await res.json();
         const letters = resjson["subsonic-response"]["indexes"]["index"];
@@ -161,5 +161,9 @@ export class Source extends EventTarget {
 
   public get salt() {
     return this._salt;
+  }
+
+  public get authParams() {
+    return this._authParams;
   }
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import SongPlayer from "../../player/SongPlayer";
 import Button from "./Button";
+import Song from "../../player/Song";
 
 function Bottombar() {
   const player = SongPlayer.getInstance();
@@ -15,14 +16,46 @@ function Bottombar() {
 
   // play pause
   const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    function handleSongChange(event: CustomEvent<Song>) {
+      setSongTitle(event.detail.title);
+      setSongArtist(event.detail.artist);
+
+      const album = event.detail.album;
+      if (album) {
+        setSongAlbum(album.name);
+      }
+
+      setSongCover(event.detail.cover);
+    }
+
+    function handlePlayerStarted() {
+      setIsPlaying(true);
+    }
+
+    function handlePlayerPaused() {
+      setIsPlaying(false);
+    }
+
+    player.addEventListener("newSubsonicTrack", handleSongChange as EventListener);
+    player.addEventListener("playbackStarted", handlePlayerStarted as EventListener);
+    player.addEventListener("playbackStopped", handlePlayerPaused as EventListener);
+
+    return () => {
+      player.removeEventListener("newSubsonicTrack", handleSongChange as EventListener);
+      player.removeEventListener("playbackStarted", handlePlayerStarted as EventListener);
+      player.removeEventListener("playbackStopped", handlePlayerPaused as EventListener);
+    };
+
+  }, [player, songTitle, songAlbum, songArtist, songCover]);
+
   const handlePlay = (): void => {
     player.play();
-    setIsPlaying(true);
   };
 
   const handlePause = (): void => {
     player.pause();
-    setIsPlaying(false);
   };
 
   const handleNext = (): void => {
