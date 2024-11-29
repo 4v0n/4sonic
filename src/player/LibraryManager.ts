@@ -25,23 +25,46 @@ export default class LibraryManager extends EventTarget {
 
   public addArtist(artist: Artist) {
     this._artists.set(artist.id, artist);
+    this.dispatchEvent(new CustomEvent("artistAdded", { detail: this._artists }));
   }
 
   public addArtists(artists: Artist[]) {
     for (const artist of artists) {
-      this._artists.set(artist.id, artist);
+      this.addArtist(artist);
     }
+  }
+
+  public addAlbum(album: Album) {
+    this._albums.set(album.id, album);
+    this.dispatchEvent(new CustomEvent("albumAdded", { detail: this._albums }));
   }
 
   public addAlbums(albums: Album[]) {
     for (const album of albums) {
-      this._albums.set(album.id, album);
+      this.addAlbum(album);
     }
+  }
+
+  public addSong(songs: Song) {
+    this._songs.set(songs.id, songs);
+    this.dispatchEvent(new CustomEvent("songAdded", { detail: this._songs }));
   }
 
   public addSongs(songs: Song[]) {
     for (const song of songs) {
-      this._songs.set(song.id, song);
+      this.addSong(song);
     }
+  }
+
+  public get artists() {
+    return this._artists;
+  }
+
+  public get albums() {
+    return this._albums;
+  }
+
+  public get songs() {
+    return this._songs;
   }
 }
