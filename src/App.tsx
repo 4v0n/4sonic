@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import startup from "./utils/startupUtil";
 import Bottombar from "./components/shared/Bottombar";
 import ManageSourcesPage from "./components/pages/ManageSourcesPage";
@@ -17,14 +17,13 @@ import { SetupPage } from "./components/pages/SetupPage";
 import { Topbar } from "./components/shared/Topbar";
 
 export default function App() {
-
   const [firstStartup, setFirstStartup] = useState(true);
-  const [initialised, setInitialised] = useState(false);
+  const isStartupCalled = useRef(false);
 
   useEffect(() => {
-    if (!initialised) {
+    if (!isStartupCalled.current) {
       startup();
-      setInitialised(true);
+      isStartupCalled.current = true;
     }
 
     const firstTime = localStorage.getItem("firstTime");
@@ -38,9 +37,7 @@ export default function App() {
   }
 
   if (firstStartup) {
-    return (
-      <SetupPage onComplete={completeSetup} />
-    );
+    return <SetupPage onComplete={completeSetup} />;
   }
 
   return (

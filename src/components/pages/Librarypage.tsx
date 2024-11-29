@@ -1,7 +1,11 @@
+import Button from "../shared/Button";
+
 export function LibraryPage() {
   return (
     <div>
-      Librarypage
+      <Button>
+        Do stuff
+      </Button>
     </div>
   );
 };
