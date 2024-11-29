@@ -5,7 +5,7 @@ import InputBar from "./InputBar";
 
 export function Topbar() {
   return (
-    <div className="fixed w-full min-h-12 max-h-12 shadow-md">
+    <div className="fixed w-full min-h-12 max-h-12 shadow-md bg-background-light dark:bg-background-dark">
       <nav className="flex items-center justify-between pr-2">
         <div className="flex items-center">
           <Link to="/">

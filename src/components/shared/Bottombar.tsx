@@ -73,7 +73,7 @@ function Bottombar() {
   };
 
   return (
-    <div className="w-full h-20 fixed bottom-0 bottomBar">
+    <div className="w-full h-20 fixed bottom-0 left-0 bottomBar bg-background-light dark:bg-background-dark">
       <hr className="bottomBar" />
       <div className="flex justify-between items-center h-full px-2">
         <div className="flex space-x-2">
