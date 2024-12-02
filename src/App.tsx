@@ -42,9 +42,9 @@ export default function App() {
 
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col">
         <Topbar />
-        <div className="flex-grow overflow-y-auto max-h-[calc(100vh-3rem-5rem)] mt-12 pb-20 px-1">
+        <div className="flex-grow overflow-y-auto max-h-[calc(100vh-3rem-5rem)] mt-12 pb-20">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/search/:query" element={<SearchPage />} />

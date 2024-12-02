@@ -5,6 +5,7 @@ import Album from "../../player/Album";
 import Song from "../../player/Song";
 import SongPlayer from "../../player/SongPlayer";
 import Button from "../shared/Button";
+import LibrarySideBar from "../shared/LibrarySideBar";
 
 export function LibraryPage() {
 
@@ -47,20 +48,23 @@ export function LibraryPage() {
   }
 
   return (
-    <div>
-      <ul>
-        {[...songs.entries()].map(([songId, song]) => (
-          <li key={songId}>
-            <Button
-              onClick={() => {
-                handlePlaySong(song);
-              }}
-            >
-              {song.artist} - {song.title}
-            </Button>
-          </li>
-        ))}
-      </ul>
+    <div className="flex min-h-full">
+      <LibrarySideBar />
+      <div className="flex-1 pt-2 ml-28">
+        <ul>
+          {[...songs.entries()].map(([songId, song]) => (
+            <li key={songId}>
+              <Button
+                onClick={() => {
+                  handlePlaySong(song);
+                }}
+              >
+                {song.artist} - {song.title}
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
