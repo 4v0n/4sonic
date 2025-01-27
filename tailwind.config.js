@@ -17,6 +17,10 @@ export const theme = {
         dark: "#ffffff",
         light: "#000000",
       },
+      text_gray: {
+        dark: "#6b7280",
+        light: "#6b7280",
+      },
       title: {
         dark: "#b2f3d4",
         light: "#b2f3d4",

@@ -24,6 +24,33 @@ export default class Song {
     return this.details.title;
   }
 
+  public get fileType() {
+    const string = this.details.contentType.split("/");
+    return string[1];
+  }
+
+  public get bitrate() {
+    return this.details.bitRate;
+  }
+
+  public get sampleRate() {
+    return this.details.samplingRate;
+  }
+
+  public get duration() {
+    return this.details.duration;
+  }
+
+  public getDurationString() {
+    const minutes = Math.floor(this.duration / 60);
+    const remainingSeconds = this.duration % 60;
+
+    // Format with leading zeros for seconds
+    const formattedSeconds = remainingSeconds.toString().padStart(2, '0');
+
+    return `${minutes}:${formattedSeconds}`;
+  }
+
   public get album(): Album | undefined {
     const libraryManager = LibraryManager.getInstance();
     const album = libraryManager.albums.get(this.details.albumId);
