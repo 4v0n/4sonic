@@ -1,3 +1,5 @@
+import { Source } from "../sources/Source";
+import LibraryManager from "./LibraryManager";
 import Song from "./Song";
 import { SubsonicAlbum } from "./SubsonicTypes";
 
@@ -8,10 +10,16 @@ export default class Album {
 
   private _songs: string[];
 
-  constructor(albumDetails: SubsonicAlbum) {
+  private _details: SubsonicAlbum;
+  private _source: Source;
+
+  constructor(albumDetails: SubsonicAlbum, relevantSource: Source) {
     this._name = albumDetails.name;
     this._id = albumDetails.id;
     this._songs = new Array(albumDetails.songCount);
+
+    this._details = albumDetails;
+    this._source = relevantSource;
   }
 
   public addSong(song: Song) {
@@ -28,5 +36,31 @@ export default class Album {
 
   public get id() {
     return this._id;
+  }
+
+  public get cover() {
+    return `${this._source.uri}/getCoverArt${this._source.authParams}&id=${this.id}`;
+  }
+
+  public get artist() {
+    const lm = LibraryManager.getInstance();
+    return lm.artists.get(this._details.artistId);
+  }
+
+  public getSongObjects() {
+    const songs: Song[] = [];
+
+    const lm = LibraryManager.getInstance();
+    for (const songString of this.songs) {
+      const song = lm.songs.get(songString);
+
+      if (!song) {
+        continue;
+      }
+
+      songs.push(song);
+    }
+
+    return songs;
   }
 }

@@ -15,6 +15,7 @@
     "@tauri-apps/plugin-shell": ">=2.0.0",
     "@types/react-router-dom": "^5.3.3",
     "buffer": "^6.0.3",
+    "canvas": "^3.1.0",
     "classnames": "^2.5.1",
     "crypto-js": "^4.2.0",
     "four_sonic": "file:",
@@ -25,6 +26,7 @@
     "react": "^18.2.0",
     "react-cookie": "^7.2.2",
     "react-dom": "^18.2.0",
+    "react-intersection-observer": "^9.15.1",
     "react-router-dom": "^6.27.0",
     "ts-node": "^10.9.2"
   },

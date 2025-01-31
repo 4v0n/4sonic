@@ -1,3 +1,6 @@
+// Toggle this flag to control one-artist/one-album loading
+const DEBUG_MODE = true;
+
 import Album from "../player/Album";
 import Artist from "../player/Artist";
 import LibraryManager from "../player/LibraryManager";
@@ -37,9 +40,19 @@ export class Source extends EventTarget {
   public async retrieveLibrary(): Promise<void> {
     const lm = LibraryManager.getInstance();
 
-    const foundArtists = await this.getIndexes();
+    // Get all artists from the server
+    let foundArtists = await this.getIndexes();
+
+    // If in debug mode, keep only the first 3 artists
+    if (DEBUG_MODE && foundArtists.length > 3) {
+      foundArtists = foundArtists.slice(0, 3);
+    }
+
+
+    // Add the (possibly reduced) artist list to the library
     lm.addArtists(foundArtists);
 
+    // Get albums from these artists
     const albumPromise = this.getAlbumsFromArtists(foundArtists).then((foundAlbums) => {
       lm.addAlbums(foundAlbums);
 
@@ -47,22 +60,21 @@ export class Source extends EventTarget {
       return this.getSongsFromAlbums(foundAlbums);
     });
 
+    // Once albums are done and songs are fetched, add songs to the library
     albumPromise.then((foundSongs) => {
       this.addSongsToArtists(foundSongs, foundArtists);
       lm.addSongs(foundSongs);
     });
   }
 
-
   private addSongsToArtists(songs: Song[], artistArray: Artist[]) {
     const artists = artistArray.reduce((acc, obj) => {
       acc.set(obj.name, obj);
       return acc;
-    }, new Map());
+    }, new Map<string, Artist>());
 
     for (const song of songs) {
-      const artist: Artist = artists.get(song.artist);
-
+      const artist: Artist | undefined = artists.get(song.artist);
       if (artist) {
         artist.addSong(song);
       }
@@ -77,7 +89,7 @@ export class Source extends EventTarget {
         const res = await fetch(this.uri + "/getAlbum" + this._authParams + `&id=${album.id}`);
         if (res.ok) {
           const resjson = await res.json();
-          const songs = resjson["subsonic-response"]["album"]["song"];
+          const songs = resjson["subsonic-response"]?.["album"]?.["song"];
 
           if (songs) {
             for (const songDetail of songs) {
@@ -97,21 +109,22 @@ export class Source extends EventTarget {
     return songSet;
   }
 
-
   private async getAlbumsFromArtists(artists: Artist[]): Promise<Album[]> {
     const albumSet: Album[] = [];
 
-    // Prepare all fetch promises
-    const fetchPromises = artists.map(async (artist) => {
+    // In debug mode, fetch only the first artist's albums
+    const artistSlice = DEBUG_MODE ? artists.slice(0, 3) : artists;
+
+    const fetchPromises = artistSlice.map(async (artist) => {
       try {
         const res = await fetch(this.uri + "/getArtist" + this._authParams + `&id=${artist.id}`);
         if (res.ok) {
           const resjson = await res.json();
-          const albums = resjson["subsonic-response"]["artist"]["album"];
+          const albums = resjson["subsonic-response"]?.["artist"]?.["album"];
 
           if (albums) {
             for (const albumDetail of albums) {
-              const album = new Album(albumDetail);
+              const album = new Album(albumDetail, this);
               albumSet.push(album);
               artist.addAlbum(album);
             }
@@ -123,11 +136,10 @@ export class Source extends EventTarget {
       }
     });
 
-    // Wait for all promises to resolve
     await Promise.all(fetchPromises);
+
     return albumSet;
   }
-
 
   private async getIndexes(): Promise<Artist[]> {
     const artistSet: Artist[] = [];
@@ -136,8 +148,7 @@ export class Source extends EventTarget {
       const res = await fetch(this._uri + "/getIndexes" + this._authParams);
       if (res.ok) {
         const resjson = await res.json();
-        const letters = resjson["subsonic-response"]["indexes"]["index"];
-
+        const letters = resjson["subsonic-response"]?.["indexes"]?.["index"] || [];
         for (const letter of letters) {
           for (const artistDetail of letter["artist"]) {
             const artist = new Artist(artistDetail);
