@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { useEffect, useRef, useState } from "react";
 import startup from "./utils/startupUtil";
-import Bottombar from "./components/shared/Bottombar";
+import Player from "./components/shared/Player";
 import ManageSourcesPage from "./components/pages/ManageSourcesPage";
 import AddSourcePage from "./components/pages/AddSourcePage";
 import { AlbumPage } from "./components/pages/AlbumPage";
@@ -59,7 +59,7 @@ export default function App() {
           </Routes>
         </div>
       </div>
-      <Bottombar />
+      <Player />
     </Router>
   );
 }

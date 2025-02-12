@@ -42,6 +42,18 @@ export default class Album {
     return `${this._source.uri}/getCoverArt${this._source.authParams}&id=${this.id}`;
   }
 
+  public get year() {
+    return this._details.year;
+  }
+
+  public get songCount() {
+    return this._details.songCount;
+  }
+
+  public get duration() {
+    return this._details.duration;
+  }
+
   public get artist() {
     const lm = LibraryManager.getInstance();
     return lm.artists.get(this._details.artistId);

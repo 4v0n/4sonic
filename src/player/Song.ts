@@ -41,14 +41,8 @@ export default class Song {
     return this.details.duration;
   }
 
-  public getDurationString() {
-    const minutes = Math.floor(this.duration / 60);
-    const remainingSeconds = this.duration % 60;
-
-    // Format with leading zeros for seconds
-    const formattedSeconds = remainingSeconds.toString().padStart(2, '0');
-
-    return `${minutes}:${formattedSeconds}`;
+  public get albumName() {
+    return this.details.album;
   }
 
   public get album(): Album | undefined {

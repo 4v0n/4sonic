@@ -1,7 +1,8 @@
 import { useState, useMemo } from "react";
 import Song from "../../player/Song";
-import SongPlayer from "../../player/SongPlayer";
 import { useInView } from "react-intersection-observer";
+import { getDurationString } from "../../utils/StringFormationUtil";
+import Player from "./Player";
 
 interface TableProps {
   songs: Song[];
@@ -33,9 +34,9 @@ export default function SongTable({
   }
 
   function handlePlaySong(song: Song) {
-    const player = SongPlayer.getInstance();
-    player.setTrack(song.stream);
-    player.play();
+    const player = Player.getInstance();
+    player?.setSong(song);
+    player?.play();
   }
 
   const sortedSongs = useMemo(() => {
@@ -192,8 +193,8 @@ export default function SongTable({
                   {/* like button */}
                 </td>
                 <td className="px-6 py-2 text-center align-middle">
-                  <span className="text-sm truncate block overflow-hidden" title={song.getDurationString()}>
-                    {song.getDurationString()}
+                  <span className="text-sm truncate block overflow-hidden" title={getDurationString(song.duration)}>
+                    {getDurationString(song.duration)}
                   </span>
                 </td>
               </tr>

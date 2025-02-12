@@ -6,6 +6,7 @@ import Song from "../../player/Song";
 import LibrarySideBar from "../shared/LibrarySideBar";
 import SongTable from "../shared/SongTable";
 import { createCanvas, loadImage } from "canvas";
+import { getDurationString } from "../../utils/StringFormationUtil";
 
 export function LibraryPage() {
 
@@ -74,31 +75,31 @@ export function LibraryPage() {
 
         {[...albums.entries()].map(([albumId, album]) => (
           <div>
-            <div className="flex bg-surface1-light dark:bg-surface1-dark shadow-lg rounded-sm ">
+            <div className="flex shadow-lg rounded-sm p-2">
               <img
                 src={album.cover}
                 className="w-48 h-48 object-cover rounded-sm shadow-lg"
               />
-              <div>
-                <h1
-                  className="font-bold text-3xl truncate"
-                >
+              <div className="p-2 flex flex-col justify-end">
+                <h1 className="font-bold text-3xl truncate">
                   {album.name}
                 </h1>
-                <h2
-                  className="flex items-center space-x-2"
-                >
+                <div className="flex flex-row space-x-1 items-center">
                   <img
                     src={album.artist?.artistImageUrl}
                     className="w-8 h-8 object-cover rounded-full shadow-lg"
                   />
-                  {album.artist?.name}
-                </h2>
+                  <h2 className="flex items-center">
+                    {album.artist?.name}
+                  </h2>
+                  <h3 className="text-text_gray-light dark:text-text_gray-dark">
+                    - {album.year} - {album.songCount} {album.songCount > 1 ? "songs" : "song"}, {getDurationString(album.duration)}
+                  </h3>
+                </div>
               </div>
             </div>
             <SongTable
               songs={album.getSongObjects()}
-              showArt={true}
             />
           </div>
         ))}
